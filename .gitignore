@@ -1,0 +1,19 @@
+# Specifies intentionally untracked files to ignore when using Git
+# http://git-scm.com/docs/gitignore
+
+node_modules/
+platforms/
+plugins/
+www/lib/
+hooks/
+resources/
+
+.idea
+*.iml
+.vscode
+.editorconfig
+
+
+# Except this file
+!.gitignore
+
