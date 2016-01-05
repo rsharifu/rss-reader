@@ -7,6 +7,7 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
 
+// Run after injector is done
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -23,6 +24,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
   });
 })
 
+// On module loading
 .config(function($stateProvider, $urlRouterProvider) {
 
   // Ionic uses AngularUI Router which uses the concept of states
