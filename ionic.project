@@ -1,4 +1,10 @@
 {
   "name": "rss-reader",
-  "app_id": ""
+  "app_id": "",
+  "proxies": [
+      {
+        "path": "/sample.xml",
+        "proxyUrl": "http://www.feedforall.com/"
+      }
+    ]
 }
