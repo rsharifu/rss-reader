@@ -1,7 +1,7 @@
 {
-  "name": "rss-reader",
+  "name": "mind-reader",
   "version": "0.0.1",
-  "description": "rss-reader: An Ionic project",
+  "description": "Mind-reader",
   "dependencies": {
     "gulp": "^3.5.6",
     "gulp-sass": "^2.0.4",
