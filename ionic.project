@@ -2,9 +2,17 @@
   "name": "mind-reader",
   "app_id": "",
   "proxies": [
-      {
-        "path": "/sample.xml",
-        "proxyUrl": "http://www.feedforall.com/"
-      }
-    ]
+    {
+      "path": "/sample.xml",
+      "proxyUrl": "http://www.feedforall.com/"
+    }
+  ],
+  "gulpStartupTasks": [
+    "sass",
+    "watch"
+  ],
+  "watchPatterns": [
+    "www/**/*",
+    "!www/lib/**/*"
+  ]
 }
