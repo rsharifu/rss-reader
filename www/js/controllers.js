@@ -34,6 +34,12 @@ $scope.init = function() {
             });
 }
 
+$scope.onScroll = function() {
+  console.log("onScroll");
+}
+
 });
+
+
 
 

@@ -1,1 +1,8 @@
 /* Empty. Add your own CSS if you like */
+.ion-plus-round.small {
+    font-size:120%;
+}
+
+.button-clear.small-padding-top {
+    top:2px;
+}

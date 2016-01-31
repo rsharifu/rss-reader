@@ -16,10 +16,17 @@
     <ion-header-bar class="bar-positive">
       <h1 class="title">Left</h1>
     </ion-header-bar>
-    <ion-content>
-      <ion-list>
-        <ion-item menu-close href="#/app/feed-list">
+    <ion-content >
+      <ion-list >
+        <ion-item class='item-divider item-button-right' >
           Subscriptions
+          <button class="button button-clear small-padding-top">
+            <i class="icon ion-plus-round small" ></i>
+          </button>
+        </ion-item>
+        <ion-item class='item' menu-close href="#/app/feed-list">
+          All items
+          <span class="badge badge-assertive">0</span>
         </ion-item>
         <ion-item menu-close ng-click="login()">
           Sign in
