@@ -43,8 +43,17 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
         }
       }
     })
+    .state('app.preview', {
+        url: '/feed-list/:feedId',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/preview.html',
+            controller: 'PreviewCtrl'
+          }
+        }
+      });
 
     $urlRouterProvider.otherwise('/app/feed-list');
-})
+});
 
 

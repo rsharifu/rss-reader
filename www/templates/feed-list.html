@@ -1,11 +1,11 @@
-<ion-view view-title="feed-list">
-  <ion-content class="padding" ng-init="init()" overflow-scroll="false">
-    <ion-refresher pulling-text="Pull to refresh..." >
+<ion-view view-title="feed-list" >
+  <ion-content class="padding" overflow-scroll="false">
+    <ion-refresher pulling-text="Pull to refresh..." on-refresh="doRefresh()">
     </ion-refresher>
     <ion-list >
       <ion-item collection-repeat="item in entries"
                 item="item"
-                href="#/item/{{item.id}}" class="item-remove-animate">
+                href="#/app/feed-list/{{item.id}}" class="item-remove-animate">
         Item {{item.title}}
         <ion-option-button class="button-calm"
                            ng-click="share(item)">
@@ -15,5 +15,6 @@
       </ion-item>
 
     </ion-list>
+    <!--<ion-infinite-scroll on-infinite="loadMore()" distance="1%"/>-->
   </ion-content>
 </ion-view>

@@ -1,45 +1,54 @@
 angular.module('starter.controllers', [])
 
-.controller('MainCtrl', function($http, $scope) {
+.controller('MainCtrl', function($http, $scope, DataFactory) {
 
-  $scope.share = function(item) {
-    alert('Share Item: ' + item.id);
-  };
+	$scope.share = function(item) {
+		alert('Share Item: ' + item.id);
+	};
 
-  $scope.moveItem = function(item, fromIndex, toIndex) {
-    $scope.items.splice(fromIndex, 1);
-    $scope.items.splice(toIndex, 0, item);
-  };
+	$scope.isOn = true;
+
+	$scope.moveItem = function(item, fromIndex, toIndex) {
+		$scope.items.splice(fromIndex, 1);
+		$scope.items.splice(toIndex, 0, item);
+	};
+
+	$scope.doRefresh = function() {
+		DataFactory.getData()
+		.then(function(data) {
+			Array.prototype.push.apply($scope.entries, data);
+			}).finally(function() {
+			// Stop the ion-refresher from spinning
+			$scope.$broadcast('scroll.refreshComplete');
+		});
+	}
+
+	$scope.loadMore = function() {
+		DataFactory.getData()
+		.then(function(data) {
+		  console.log("DataFactory.getData.then")
+			Array.prototype.push.apply($scope.entries, data);
+			}).finally(function() {
+			// Stop the ion-refresher from spinning
+			$scope.$broadcast('scroll.infiniteScrollComplete');
+		});
+	}
+
+	// load data on page load
+	DataFactory.getData().then(function(data) {
+		$scope.entries = data;
+	});
+
+	$scope.onScroll = function() {
+		console.log("onScroll");
+	}
+
+})
 
 
-$scope.init = function() {
-        $http.get("/sample.xml/sample.xml")
-            .success(function(data) {
-                var x2js = new X2JS();
-                var jsonData = x2js.xml_str2json(data);
-                console.log("jsonData=" + jsonData.rss.channel.title);
-                console.log("jsonData.rss.channel.items=" + jsonData.rss.channel.item);
-//                console.log("data.responseData=" + data.responseData);
-//                $scope.rssTitle = data.responseData.feed.title;
-//                $scope.rssUrl = data.responseData.feed.feedUrl;
-//                $scope.rssSiteUrl = data.responseData.feed.link;
-                $scope.entries = jsonData.rss.channel.item;
-//                window.localStorage["entries"] = JSON.stringify(jsonData.rss.channel.item);
-            })
-            .error(function(data) {
-                console.log("ERROR: " + data);
-                if(window.localStorage["entries"] !== undefined) {
-                    $scope.entries = JSON.parse(window.localStorage["entries"]);
-                }
-            });
-}
+.controller('PreviewCtrl', function($http, $scope, $stateParams) {
+  $scope.feedId = $stateParams.feedId
 
-$scope.onScroll = function() {
-  console.log("onScroll");
-}
 
 });
-
-
-
 
