@@ -1,6 +1,6 @@
 angular.module('starter.controllers', [])
 
-.controller('MainCtrl', function($http, $scope, DataFactory) {
+.controller('MainCtrl', function($http, $scope, $state, DataFactory) {
 
 	$scope.share = function(item) {
 		alert('Share Item: ' + item.id);
@@ -41,6 +41,11 @@ angular.module('starter.controllers', [])
 
 	$scope.onScroll = function() {
 		console.log("onScroll");
+	}
+
+	$scope.onClickAddSubscription = function() {
+	  console.log("onClickAddSubscription")
+	  $state.go('app.settings')
 	}
 
 })
