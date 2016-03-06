@@ -17,6 +17,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
   });
 })
 
+// Routes
 // On module loading
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
@@ -34,35 +35,36 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
           }
         }
     })
-    .state('app.feed-list', {
-      url: '/feed-list',
+    .state('app.entry-list', {
+      url: '/entry-list/:feedId',
       views: {
         'menuContent': {
-          templateUrl: 'templates/feed-list.html',
-          controller: 'MainCtrl'
+          templateUrl: 'templates/entry-list.html',
+          controller: 'EntryListCtrl'
         }
       }
     })
-    .state('app.preview', {
-        url: '/feed-list/:feedId',
+    .state('app.entry-preview', {
+        url: '/entry-list/:feedId/entry-preview/:entryId',
         views: {
           'menuContent': {
-            templateUrl: 'templates/preview.html',
-            controller: 'PreviewCtrl'
+            templateUrl: 'templates/entry-preview.html',
+            controller: 'EntryPreviewCtrl'
           }
         }
-    }
-    .state('app.preview', {
-            url: '/feed-list/:feedId',
-            views: {
-              'menuContent': {
-                templateUrl: 'templates/preview.html',
-                controller: 'PreviewCtrl'
-              }
-            }
-    });
+    })
+    .state('app.feed-add', {
+        url: '/feed-add',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/feed-add.html',
+            controller: 'FeedAddCtrl'
+          }
+        }
+    })
+    ;
 
-    $urlRouterProvider.otherwise('/app/feed-list');
+    $urlRouterProvider.otherwise('/app/entry-list/0');
 });
 
 

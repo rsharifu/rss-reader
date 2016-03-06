@@ -25,7 +25,12 @@
             <i class="icon ion-plus-round small" ></i>
           </button>
         </ion-item>
-        <ion-item class='item' menu-close href="#/app/feed-list">
+        <ion-list >
+          <ion-item ng-repeat="feed in feeds track by $index" href="#/app/entry-list/{{feed.id}}">
+            <p >{{feed.title}}</p>
+          </ion-item>
+        </ion-list>
+        <ion-item class='item' menu-close href="#/app/entry-list">
           All items
           <span class="badge badge-assertive">0</span>
         </ion-item>

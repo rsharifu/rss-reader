@@ -3,7 +3,7 @@
   "app_id": "",
   "proxies": [
     {
-      "path": "/sample.xml",
+      "path": "/feedforall",
       "proxyUrl": "http://www.feedforall.com/"
     }
   ],
