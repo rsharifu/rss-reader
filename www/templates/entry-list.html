@@ -15,6 +15,12 @@
       </ion-item>
 
     </ion-list>
+
+    <div class="card" ng-show="entries.length == 0">
+      <div class="item item-text-wrap text-center">
+        <h2>No entries in the feed!</h2>
+      </div>
+    </div>
     <!--<ion-infinite-scroll on-infinite="loadMore()" distance="1%"/>-->
   </ion-content>
 </ion-view>
