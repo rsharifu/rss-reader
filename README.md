@@ -21,3 +21,8 @@ Features v1.0:
 4. settings
 4.1. font size
 
+
+Todo:
+add icon
+validation for add feed screen
+

@@ -1,11 +1,11 @@
 angular.module('starter.controllers', [])
 
-.controller('MainCtrl', function($http, $scope, $state, DataFactory, LSFactory) {
+.controller('MainCtrl', function($rootScope, $http, $scope, $state, DataFactory, LSFactory) {
 
 	$scope.feeds = []
 
 	$scope.addItems = function() {
-		Array.prototype.push.apply($scope.feeds, LSFactory.getAll())
+		$scope.feeds = LSFactory.getAll();
 		console.log("feeds: " + $scope.feeds.length)
 		console.log("feeds: " + $scope.feeds[0].title)
 	}
@@ -21,6 +21,11 @@ angular.module('starter.controllers', [])
 		$state.go('app.feed-add')
 	}
 
+
+	$rootScope.$on('feedsCountChanged', function($event, scope, cancelCallback, callback) {
+	  $scope.addItems();
+  });
+
 })
 
 .controller('EntryPreviewCtrl', function($http, $scope, $stateParams, DataFactory) {
@@ -33,7 +38,7 @@ angular.module('starter.controllers', [])
   });
 })
 
-.controller('EntryListCtrl', function($http, $scope, $stateParams, DataFactory) {
+.controller('EntryListCtrl', function($http, $scope, $stateParams, DataFactory, Loader) {
 	$scope.feedId = $stateParams.feedId
 
 	$scope.share = function(item) {
@@ -67,12 +72,14 @@ angular.module('starter.controllers', [])
   	}
 
   	// load data on page load
+  	Loader.showLoading();
   	DataFactory.getData($scope.feedId).then(function(data) {
   		$scope.entries = data;
+  		Loader.hideLoading();
   	});
 })
 
-.controller('FeedAddCtrl', function($http, $scope, $stateParams, $ionicHistory,
+.controller('FeedAddCtrl', function($rootScope, $http, $scope, $stateParams, $ionicHistory,
                                     $ionicSideMenuDelegate, LSFactory) {
 	$scope.data = {};
 
@@ -83,6 +90,9 @@ angular.module('starter.controllers', [])
     $ionicHistory.goBack();
     // Open side menu
     $ionicSideMenuDelegate.toggleLeft();
+
+    // Broadcast the change
+    $rootScope.$broadcast('feedsCountChanged', $scope, null, null);
 	}
 })
 ;

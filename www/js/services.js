@@ -7,31 +7,31 @@ angular.module('starter.services', [])
 			var output = [];
 			var feed = LSFactory.getFeed($feedId);
 			if(feed){
-        $http.get(feed.url).success(function(data) {
-          var x2js = new X2JS();
-          var jsonData = x2js.xml_str2json(data);
-          console.log("jsonData=" + jsonData.rss.channel.title);
-          console.log("jsonData.rss.channel.items=" + jsonData.rss.channel.item);
-          output = jsonData.rss.channel.item;
-          var surrogateId = 0;
-          for (var ordinal in output){
-            var item = output[ordinal];
-            item.id = surrogateId;
-            surrogateId++;
-          }
-          deferred.resolve(output);
-        })
-        .error(function(data) {
-          console.log("ERROR: " + data);
-          if(window.localStorage["entries"] !== undefined) {
-            $scope.entries = JSON.parse(window.localStorage["entries"]);
-          }
-          deferred.reject();
-        });
+				$http.get(feed.url).success(function(data) {
+					var x2js = new X2JS();
+					var jsonData = x2js.xml_str2json(data);
+					console.log("jsonData=" + jsonData.rss.channel.title);
+					console.log("jsonData.rss.channel.items=" + jsonData.rss.channel.item);
+					output = jsonData.rss.channel.item;
+					var surrogateId = 0;
+					for (var ordinal in output){
+						var item = output[ordinal];
+						item.id = surrogateId;
+						surrogateId++;
+					}
+					deferred.resolve(output);
+				})
+				.error(function(data) {
+					console.log("ERROR: " + data);
+					if(window.localStorage["entries"] !== undefined) {
+						$scope.entries = JSON.parse(window.localStorage["entries"]);
+					}
+					deferred.reject();
+				});
 
-        return deferred.promise;
-			} else {
-			  return deferred.promise;
+				return deferred.promise;
+				} else {
+				return deferred.promise;
 			}
 		}
 	};
@@ -47,22 +47,22 @@ angular.module('starter.services', [])
 			return JSON.parse(localStorage.getItem(key));
 		},
 		getFeed: function(feedId) {
-		  console.log("LSAPI.getAll: " + feedId);
-    	var feeds = LSAPI.getAll();
-    	console.log("feeds");
-    	var result = feeds.filter(function (feed) {
-    	    console.log("feed.id" + feed.id);
-          return String(feed.id).localeCompare(String(feedId)) == 0;
-      })[0];
-      if(result) console.log("result" + result.url);
-      return result;
-    },
+			console.log("LSAPI.getAll: " + feedId);
+			var feeds = LSAPI.getAll();
+			console.log("feeds");
+			var result = feeds.filter(function (feed) {
+				console.log("feed.id" + feed.id);
+				return String(feed.id).localeCompare(String(feedId)) == 0;
+			})[0];
+			if(result) console.log("result" + result.url);
+			return result;
+		},
 		set: function(key, data) {
 			return localStorage.setItem(key, JSON.stringify(data));
 		},
-    append: function(key, data) {
-      var feeds = LSAPI.getAll();
-      feeds.push(data);
+		append: function(key, data) {
+			var feeds = LSAPI.getAll();
+			feeds.push(data);
 			return localStorage.setItem(key, JSON.stringify(feeds));
 		},
 		delete: function(key) {
@@ -79,21 +79,45 @@ angular.module('starter.services', [])
 			return feeds;
 		},
 		generateUuid:function() {
-      function s4() {
-        return Math.floor((1 + Math.random()) * 0x10000)
-          .toString(16)
-          .substring(1);
-      }
-      return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
-        s4() + '-' + s4() + s4() + s4();
-    },
-    testValues: function(){
-      feeds = LSAPI.getAll();
-      if(!feeds || feeds.length == 0){
-        LSAPI.append("feed", {id:0, title: 'sample.xml', url: "/feedforall/sample.xml"});
-      }
-	  }
-  };
+			function s4() {
+				return Math.floor((1 + Math.random()) * 0x10000)
+				.toString(16)
+				.substring(1);
+			}
+			return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+			s4() + '-' + s4() + s4() + s4();
+		},
+		testValues: function(){
+			feeds = LSAPI.getAll();
+			if(!feeds || feeds.length == 0){
+				LSAPI.append("feed", {id:0, title: 'sample.xml', url: "http://www.feedforall.com/sample.xml"});
+			}
+		}
+	};
 	LSAPI.testValues();
 	return LSAPI;
-}]);
+}])
+
+.factory('Loader', ['$ionicLoading', '$timeout', function($ionicLoading, $timeout) {
+		var LOADERAPI = {
+			showLoading: function(text) {
+				text = text || 'Loading...';
+				$ionicLoading.show({
+					template: text
+				});
+			},
+			hideLoading: function() {
+				$ionicLoading.hide();
+			},
+			toggleLoadingWithMessage: function(text, timeout) {
+				$rootScope.showLoading(text);
+				$timeout(function() {
+					$rootScope.hideLoading();
+				}, timeout || 3000);
+			}
+		};
+		return LOADERAPI;
+	}])
+
+
+	;

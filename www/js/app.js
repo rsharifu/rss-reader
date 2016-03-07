@@ -19,7 +19,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
 
 // Routes
 // On module loading
-.config(function($stateProvider, $urlRouterProvider) {
+.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
   $stateProvider
     .state('app', {
       url: '/app',
@@ -65,6 +65,20 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     ;
 
     $urlRouterProvider.otherwise('/app/entry-list/0');
-});
+
+    $httpProvider.interceptors.push(function ($q) {
+      return {
+        'request': function (config) {
+          if (!window.cordova) {
+            // Replace proxied URL
+            config.url = config.url.replace("http://www.feedforall.com/", "/feedforall/");
+            config.url = config.url.replace("http://us2.campaign-archive1.com/", "/us2.campaign-archive1/");
+          }
+          return config || $q.when(config);
+        }
+      }
+    });
+})
+;
 
 

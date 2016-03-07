@@ -1,15 +1,16 @@
 <ion-view view-title="preview" >
-  <ion-content class="padding" overflow-scroll="false">
+  <ion-content class="padding">
+
     <div class="list card">
       <div class="item text-center">
         <h1>{{entries[entryId].title}}</h1>
       </div>
       <div class="item item-body">
         <p>
-        <div class="text-center" ng-bind-html="entries[entryId].description"/>
-        <div class="text-center">
-          <h2>Partly Sunny</h2>
-        </div>
+          <ion-scroll zooming="true" direction="xy" style="max-height:100vh;overflow: auto" scrollbar-x="scroll" >
+            <div
+              ng-bind-html="entries[entryId].encoded ? entries[entryId].encoded : entries[entryId].description" />
+          </ion-scroll>
         </p>
       </div>
       <div class="item tabs tabs-secondary tabs-icon-left">

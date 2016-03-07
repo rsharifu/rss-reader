@@ -5,6 +5,10 @@
     {
       "path": "/feedforall",
       "proxyUrl": "http://www.feedforall.com/"
+    },
+    {
+      "path": "/us2.campaign-archive1",
+      "proxyUrl": "http://us2.campaign-archive1.com"
     }
   ],
   "gulpStartupTasks": [
