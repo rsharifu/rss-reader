@@ -38,9 +38,9 @@ angular.module('starter.controllers', [])
   });
 })
 
-.controller('EntryListCtrl', function($http, $scope, $stateParams, DataFactory, Loader) {
+.controller('EntryListCtrl', function($http, $scope, $stateParams, DataFactory, Loader, LSFactory) {
 	$scope.feedId = $stateParams.feedId
-
+  $scope.feedTitle = LSFactory.getFeed($scope.feedId).title;
 	$scope.share = function(item) {
   		alert('Share Item: ' + item.id);
   	};

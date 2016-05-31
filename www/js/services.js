@@ -12,12 +12,23 @@ angular.module('starter.services', [])
 					var jsonData = x2js.xml_str2json(data);
 					console.log("jsonData=" + jsonData.rss.channel.title);
 					console.log("jsonData.rss.channel.items=" + jsonData.rss.channel.item);
+					//var date = new Date(jsonData.rss.channel.pubDate);
+					//console.log(date.toDateString());
 					output = jsonData.rss.channel.item;
 					var surrogateId = 0;
 					for (var ordinal in output){
 						var item = output[ordinal];
 						item.id = surrogateId;
 						surrogateId++;
+
+						// find thumb
+						var encText = output[ordinal].encoded;
+						var re = /src="(.*?)"/;
+						var thumbUrl = re.exec(encText);
+						console.log("# " + thumbUrl);
+						if(thumbUrl && thumbUrl.length > 1){
+						  item.thumbUrl = thumbUrl[1];
+						}
 					}
 					deferred.resolve(output);
 				})
@@ -38,7 +49,8 @@ angular.module('starter.services', [])
 	return API;
 })
 
-.factory('LSFactory', [function() {
+.factory('LSFactory', ['SAMPLE_FEED', 'SAMPLE_FEED_2', 'SAMPLE_FEED_3',
+      function(SAMPLE_FEED, SAMPLE_FEED_2, SAMPLE_FEED_3) {
 	var LSAPI = {
 		clear: function() {
 			return localStorage.clear();
@@ -90,7 +102,9 @@ angular.module('starter.services', [])
 		testValues: function(){
 			feeds = LSAPI.getAll();
 			if(!feeds || feeds.length == 0){
-				LSAPI.append("feed", {id:0, title: 'sample.xml', url: "http://www.feedforall.com/sample.xml"});
+				LSAPI.append("feed", SAMPLE_FEED);
+				LSAPI.append("feed", SAMPLE_FEED_2);
+				LSAPI.append("feed", SAMPLE_FEED_3);
 			}
 		}
 	};

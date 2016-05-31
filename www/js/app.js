@@ -1,5 +1,5 @@
 // Ionic Starter App
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
+angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'angularMoment'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -17,9 +17,20 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
   });
 })
 
+
+.constant('SAMPLE_FEED', {id:0, title: 'sample.xml', url: "http://www.feedforall.com/sample.xml"})
+.constant('SAMPLE_FEED_2', {id:1, title: 'android weekly', url: "http://us2.campaign-archive2.com/feed?u=887caf4f48db76fd91e20a06d&id=4eb677ad19"})
+.constant('SAMPLE_FEED_3', {id:2, title: 'Coming soon', url: "http://www.comingsoon.net/feed"})
+
+
 // Routes
 // On module loading
-.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
+.config(function($stateProvider, $urlRouterProvider, $httpProvider, $ionicConfigProvider) {
+
+  $ionicConfigProvider.backButton.previousTitleText(false);
+  $ionicConfigProvider.views.transition('platform');
+  $ionicConfigProvider.navBar.alignTitle('center');
+
   $stateProvider
     .state('app', {
       url: '/app',
@@ -73,6 +84,9 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
             // Replace proxied URL
             config.url = config.url.replace("http://www.feedforall.com/", "/feedforall/");
             config.url = config.url.replace("http://us2.campaign-archive1.com/", "/us2.campaign-archive1/");
+            config.url = config.url.replace("http://us2.campaign-archive.com/", "/us2.campaign-archive/");
+            config.url = config.url.replace("http://us2.campaign-archive2.com/", "/us2.campaign-archive2/");
+            config.url = config.url.replace("http://www.comingsoon.net/", "/www.comingsoon.net/");
           }
           return config || $q.when(config);
         }
@@ -81,4 +95,21 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
 })
 ;
 
+moment.lang('en', {
+    relativeTime : {
+        future: "in %s",
+        past:   "%s",
+        s:  "seconds",
+        m:  "1m",
+        mm: "%m",
+        h:  "1h",
+        hh: "%h",
+        d:  "1d",
+        dd: "%dd",
+        M:  "1m",
+        MM: "%dm",
+        y:  "1y",
+        yy: "%dy"
+    }
+});
 

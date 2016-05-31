@@ -26,7 +26,7 @@
           </button>
         </ion-item>
         <ion-list >
-          <ion-item ng-repeat="feed in feeds track by $index" href="#/app/entry-list/{{feed.id}}">
+          <ion-item menu-close ng-repeat="feed in feeds track by $index" href="#/app/entry-list/{{feed.id}}">
             <p >{{feed.title}}</p>
           </ion-item>
         </ion-list>

@@ -1,13 +1,13 @@
-<ion-view view-title="{{::entries[entryId].title}}" >
+<ion-view >
+  <!-- Using <ion-nav-title> view-title on <ion-view> to make title refreshable -->
+  <ion-nav-title>{{entries[entryId].title}}</ion-nav-title>
   <ion-content class="padding">
 
     <div class="list card">
-      <div class="item text-center">
-        <h1>{{entries[entryId].title}}</h1>
-      </div>
       <div class="item item-body">
         <p>
-          <ion-scroll zooming="true" direction="xy" style="max-height:100vh;overflow: auto" scrollbar-x="scroll" >
+          <ion-scroll zooming="true" direction="xy" style="max-height:100vh;overflow: auto"
+                      scrollbar-x="scroll" locking="false" overflow-scroll="false" >
             <div
               ng-bind-html="entries[entryId].encoded ? entries[entryId].encoded : entries[entryId].description" />
           </ion-scroll>

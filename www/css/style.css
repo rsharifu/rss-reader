@@ -6,3 +6,7 @@
 .button-clear.small-padding-top {
     top:2px;
 }
+
+.item-content {
+    padding-right: 16px !important;
+}
